@@ -12,5 +12,5 @@ logs
 results
 
 npm-debug.log
-.sass-cache
-node_module
+.sass-cache/
+node_module/
