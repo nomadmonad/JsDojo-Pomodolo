@@ -9,7 +9,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({port: 3000});
+  , wss = new WebSocketServer({port: 5000});
 
 var app = express();
 
@@ -32,16 +32,15 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-/*http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
-});*/
+});
 
-wss.on('open', function(ws) {
-  console.log("Express server listening on port " + app.get('port'));
-  console.log('received: %s', message);
+wss.on('connection', function(ws) {
+  console.log("WebSocket server listening on");
   ws.on('start', function(message) {
     console.log('received: %s', message);
   });
-  ws.send('sometiong');
+  ws.send('something');
 });
 
