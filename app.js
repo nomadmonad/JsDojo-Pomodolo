@@ -38,9 +38,17 @@ http.createServer(app).listen(app.get('port'), function(){
 
 wss.on('connection', function(ws) {
   console.log("WebSocket server listening on");
-  ws.on('start', function(message) {
-    console.log('received: %s', message);
+  ws.on('message', function(value) {
+    console.log('received: %s', value);
+
+    var data = JSON.parse(value);
+    if(data.type == 'start'){
+      ws.send(JSON.stringify({currentTime:'20:00',today:10,total:10}));
+    } else if(data.type == 'quit'){
+      ws.send(JSON.stringify({currentTime:'25:00',today:5,total:5}));
+    }
+    
   });
-  ws.send(JSON.stringify({currentTime:'25:00',today:2,total:25}));
+  // ws.send(JSON.stringify({currentTime:'25:00',today:2,total:25}));
 });
 

@@ -39,17 +39,32 @@ $(function(){
   // メッセージ受信イベントを処理
   ws.onmessage = function(event) {
     // 受信したメッセージを復元
-    console.log(event.data.currentTime)
+    console.log(event);
     var data = JSON.parse(event.data);
     $('#time').text(data.currentTime);   // '00:00'
     $('#todaySpace').text(data.today);  // '1'
     $('#totalSpace').text(data.total);  // '10'
   };
 
+  var _isstart = false;
+
   // スタート
   $('#button').click(function(){
-    ws.send('start', '25');
-    console.log(ws);
+    if(!_isstart){
+      ws.send(JSON.stringify({
+        type: 'start',
+        message: '25'
+      }));
+      $(this).text('QUIT');
+      _isstart = true;
+    } else {
+      ws.send(JSON.stringify({
+        type: 'quit',
+        message: '25'
+      }));
+      $(this).text('START!');
+      _isstart = false;
+    }
   });
 
 
