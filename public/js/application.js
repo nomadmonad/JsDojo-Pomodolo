@@ -27,6 +27,8 @@ $(function(){
   // WebSocketサーバに接続
   var ws = new WebSocket('ws://localhost:5000/');
 
+  var _isstart = false;
+
   // WebSocketサーバ接続イベント
   ws.onopen = function() {
     // 入室情報を文字列に変換して送信
@@ -41,12 +43,21 @@ $(function(){
     // 受信したメッセージを復元
     console.log(event);
     var data = JSON.parse(event.data);
-    $('#time').text(data.currentTime);   // '00:00'
-    $('#todaySpace').text(data.today);  // '1'
-    $('#totalSpace').text(data.total);  // '10'
-  };
 
-  var _isstart = false;
+    if(data.type == "render"){
+      $('#time').text(data.currentTime);   // '00:00'
+      $('#todaySpace').text(data.today);  // '1'
+      $('#totalSpace').text(data.total);  // '10'
+    } else if(data.type == "finish"){
+      $('#time').text(data.currentTime);   // '00:00'
+      $('#todaySpace').text(data.today);  // '1'
+      $('#totalSpace').text(data.total);  // '10'
+
+      $('#alert').text('Congratulations!');
+      _isstart = false;
+      $(this).text('START!');
+    }
+  };
 
   // スタート
   $('#button').click(function(){
@@ -57,6 +68,8 @@ $(function(){
       }));
       $(this).text('QUIT');
       _isstart = true;
+
+      $('#alert').text('');
     } else {
       ws.send(JSON.stringify({
         type: 'quit',
