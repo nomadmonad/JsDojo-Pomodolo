@@ -36,6 +36,25 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+var timer;
+function changeTime($_time) {
+  var _min = Math.floor($_time / 60);
+  var _sec = ($_time - _min*60) % 60;
+  _sec = (_sec < 10) ? '0'+_sec : _sec; 
+  return _min + ':' + _sec;
+}
+
+function startCountDown(_ws) {
+  var _time = 25 * 60;
+  timer = setInterval(function(){
+    _time--;
+
+    var _renderTime = changeTime(_time);
+
+    _ws.send(JSON.stringify({type:'render',currentTime:_renderTime,today:10,total:10}));
+  }, 1000);
+}
+
 wss.on('connection', function(ws) {
   console.log("WebSocket server listening on");
   ws.on('message', function(value) {
@@ -43,11 +62,13 @@ wss.on('connection', function(ws) {
 
     var data = JSON.parse(value);
     if(data.type == 'start'){
-      ws.send(JSON.stringify({currentTime:'20:00',today:10,total:10}));
+      ws.send(JSON.stringify({type:'render',currentTime:'25:00',today:10,total:10}));
+      startCountDown(ws);
     } else if(data.type == 'quit'){
-      ws.send(JSON.stringify({currentTime:'25:00',today:5,total:5}));
+      ws.send(JSON.stringify({type:'render',currentTime:'25:00',today:5,total:5}));
+      clearInterval(timer);
     }
-    
+
   });
   // ws.send(JSON.stringify({currentTime:'25:00',today:2,total:25}));
 });
