@@ -41,6 +41,6 @@ wss.on('connection', function(ws) {
   ws.on('start', function(message) {
     console.log('received: %s', message);
   });
-  ws.send('something');
+  ws.send(JSON.stringify({currentTime:'25:00',today:2,total:25}));
 });
 
