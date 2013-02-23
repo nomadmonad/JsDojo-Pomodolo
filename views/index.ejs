@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/screen.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/application.js" type="text/javascript" charset="utf-8" async defer></script>
+<title><%= title %></title>
+</head>
+<body>
+  <article>
+
+    <div class="timerSpace">
+    <div id="time">25:00</div>
+    </div>
+
+    <div id="buttonSpace">
+    <button id="button">START!</button>  
+    </div>
+
+    <div id="alert"></div>
+
+    <dl>
+      <dt>TODAY:</dt>
+      <dd id="todaySpace">0</dd>
+    </dl>
+    <dl>
+      <dt>TOTAL:</dt>
+      <dd id="total Space">0</dd>
+    </dl>
+
+  </article>
+</body>
 </html>
