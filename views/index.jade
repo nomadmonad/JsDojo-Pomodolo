@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  article
+  .timerSpace
+    #time 25:00
+  #buttonSpace
+    button#button START!
+  #alert
+  dl
+    dt TODAY:
+    dd#todaySpace 0
+  dl
+    dt TOTAL:
+    dd#total Space 0
