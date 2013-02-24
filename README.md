@@ -1,11 +1,7 @@
 JsDojo-Pomodolo
 ===============
 
-2013/02/23 JavaScriptDojoのお題
+2013/02/23 JavaScriptDojo（http://connpass.com/event/1664/）のお題でポモドーロタイマーを作成しました。
 
-ひとまずこのコマンドをお願いします
-
-npm install express ejs socket
-
-node app
+Node.jsとWebSocketを無駄に使うのがコンセプトです。
 
